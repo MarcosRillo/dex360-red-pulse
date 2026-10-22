@@ -87,5 +87,9 @@ Two Vercel projects from this repository:
 ## Left out on purpose
 
 - A real database, registration, password reset, and roles
-- Rate limiting on login (the next thing I would add before real users)
 - Filters, date ranges, and charts on the dashboard
+
+Known follow-ups, tracked as issues:
+
+- [#15](https://github.com/MarcosRillo/dex360-red-pulse/issues/15): login rate limiting and revocable sessions. This is the first thing to do before real users. It needs a shared store, which the exercise avoided on purpose.
+- [#14](https://github.com/MarcosRillo/dex360-red-pulse/issues/14): make CI independent of apt mirror speed. One run's Playwright system-dependency install took 10 minutes, against 32 seconds in another run at the same time.
