@@ -51,35 +51,35 @@ export function LoginForm() {
 
   return (
     <form onSubmit={onSubmit} noValidate className="flex flex-col gap-4">
-      <label className="flex flex-col gap-1 text-sm text-zinc-300">
+      <label className="flex flex-col gap-1 text-sm text-muted">
         Email
         <input
           name="email"
           type="email"
           autoComplete="username"
           required
-          className="rounded border border-zinc-700 bg-zinc-900 px-3 py-2 font-mono text-zinc-100 outline-none focus:border-red-500"
+          className="rounded border border-line bg-background px-3 py-2 font-mono text-foreground outline-none focus:border-ok focus-visible:ring-2 focus-visible:ring-ok/40"
         />
       </label>
-      <label className="flex flex-col gap-1 text-sm text-zinc-300">
+      <label className="flex flex-col gap-1 text-sm text-muted">
         Contraseña
         <input
           name="password"
           type="password"
           autoComplete="current-password"
           required
-          className="rounded border border-zinc-700 bg-zinc-900 px-3 py-2 font-mono text-zinc-100 outline-none focus:border-red-500"
+          className="rounded border border-line bg-background px-3 py-2 font-mono text-foreground outline-none focus:border-ok focus-visible:ring-2 focus-visible:ring-ok/40"
         />
       </label>
       {error ? (
-        <p role="alert" className="text-sm text-red-400">
+        <p role="alert" className="text-sm text-critical">
           {error}
         </p>
       ) : null}
       <button
         type="submit"
         disabled={pending}
-        className="rounded bg-red-600 px-4 py-2 font-medium text-white hover:bg-red-500 disabled:cursor-not-allowed disabled:opacity-60"
+        className="rounded bg-ok px-4 py-2 font-medium text-background hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ok/60 focus-visible:ring-offset-2 focus-visible:ring-offset-panel disabled:cursor-not-allowed disabled:opacity-60"
       >
         {pending ? "Ingresando…" : "Ingresar"}
       </button>
