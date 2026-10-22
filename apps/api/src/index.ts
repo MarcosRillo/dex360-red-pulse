@@ -1,4 +1,8 @@
-// Vercel entry point: the Express app is exported as the default function handler.
+// Vercel entry point: the Express app is the default export.
+// Vercel detects the Express framework from an `express` import in this file.
+import type { Express } from "express";
 import { createApp } from "./create-app.js";
 
-export default createApp();
+const app: Express = createApp();
+
+export default app;
