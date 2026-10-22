@@ -22,7 +22,7 @@ export function LogoutButton() {
       type="button"
       onClick={onClick}
       disabled={pending}
-      className="rounded border border-zinc-700 px-3 py-1.5 text-sm text-zinc-200 hover:border-red-500 disabled:opacity-60"
+      className="rounded border border-line px-3 py-1.5 text-sm text-muted transition-colors hover:border-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground disabled:opacity-60"
     >
       Cerrar sesión
     </button>
