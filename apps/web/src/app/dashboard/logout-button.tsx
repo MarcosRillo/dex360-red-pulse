@@ -1,10 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 export function LogoutButton() {
-  const router = useRouter();
   const [pending, setPending] = useState(false);
 
   async function onClick() {
@@ -12,8 +10,9 @@ export function LogoutButton() {
     try {
       await fetch("/api/auth/logout", { method: "POST" });
     } finally {
-      router.replace("/login");
-      router.refresh();
+      // Full document navigation on purpose: Next keeps visited routes alive (hidden) with
+      // <Activity>, so a client-side navigation would leave the dashboard and its data in the DOM.
+      window.location.replace("/login");
     }
   }
 
