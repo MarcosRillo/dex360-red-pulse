@@ -5,6 +5,10 @@ import { loadConfig, type AppConfig } from "./config.js";
 import { authRoutes } from "./modules/auth/auth.routes.js";
 import { AuthService } from "./modules/auth/auth.service.js";
 import { InMemoryUserRepository } from "./modules/auth/user.repository.js";
+import { requireSession } from "./middleware/require-session.js";
+import { InMemoryDealerRepository } from "./modules/network/dealer.repository.js";
+import { networkRoutes } from "./modules/network/network.routes.js";
+import { NetworkService } from "./modules/network/network.service.js";
 
 // Composition root: wires repositories → services → routes.
 export function createApp(config: AppConfig = loadConfig()) {
@@ -19,6 +23,11 @@ export function createApp(config: AppConfig = loadConfig()) {
   });
 
   app.use("/api/auth", authRoutes(new AuthService(new InMemoryUserRepository()), config));
+  app.use(
+    "/api/network",
+    requireSession(config.sessionSecret),
+    networkRoutes(new NetworkService(new InMemoryDealerRepository())),
+  );
 
   app.use((_req, res) => {
     res.status(404).json({ error: "Not found" });
