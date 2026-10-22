@@ -1,7 +1,8 @@
+import { redirect } from "next/navigation";
+
+// This route only redirects, so there is no instant navigation to validate.
+export const instant = false;
+
 export default function Home() {
-  return (
-    <main className="flex min-h-screen items-center justify-center">
-      <h1 className="font-mono text-2xl">Red Pulse</h1>
-    </main>
-  );
+  redirect("/dashboard");
 }
