@@ -1,15 +1,24 @@
+import cookieParser from "cookie-parser";
 import express, { type ErrorRequestHandler } from "express";
 import type { HealthResponse } from "@red-pulse/contracts";
+import { loadConfig, type AppConfig } from "./config.js";
+import { authRoutes } from "./modules/auth/auth.routes.js";
+import { AuthService } from "./modules/auth/auth.service.js";
+import { InMemoryUserRepository } from "./modules/auth/user.repository.js";
 
-export function createApp() {
+// Composition root: wires repositories → services → routes.
+export function createApp(config: AppConfig = loadConfig()) {
   const app = express();
   app.disable("x-powered-by");
   app.use(express.json());
+  app.use(cookieParser());
 
   app.get("/api/health", (_req, res) => {
     const body: HealthResponse = { status: "ok", service: "red-pulse-api" };
     res.json(body);
   });
+
+  app.use("/api/auth", authRoutes(new AuthService(new InMemoryUserRepository()), config));
 
   app.use((_req, res) => {
     res.status(404).json({ error: "Not found" });
