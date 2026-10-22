@@ -29,7 +29,7 @@ test("a valid login lands on /dashboard", async ({ page }) => {
   await signIn(page, PASSWORD);
 
   await expect(page).toHaveURL(/\/dashboard$/);
-  await expect(page.getByRole("heading", { name: /Valentina Ríos/ })).toBeVisible();
+  await expect(page.getByText("Valentina Ríos", { exact: true })).toBeVisible();
 });
 
 test("logout returns to /login and /dashboard redirects again", async ({ page }) => {

@@ -10,7 +10,7 @@ test("login shows the KPI cards and the dealer ranking, and logout locks the das
   for (const label of ["Leads", "Primera respuesta", "Test drives", "Conversión"]) {
     await expect(page.getByRole("article", { name: label })).toBeVisible();
   }
-  await expect(page.getByText("Valentina Ríos")).toBeVisible();
+  await expect(page.getByText("Valentina Ríos", { exact: true })).toBeVisible();
 
   await expect(page.getByRole("heading", { name: "Red de concesionarios" })).toBeVisible();
   const rows = page.getByRole("table").locator("tbody tr");
