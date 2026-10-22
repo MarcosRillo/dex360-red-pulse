@@ -42,3 +42,19 @@ test("logout returns to /login and /dashboard redirects again", async ({ page })
   await page.goto("/dashboard");
   await expect(page).toHaveURL(/\/login$/);
 });
+
+test("after logout the login form is clean and no authenticated UI stays in the page", async ({ page }) => {
+  await signIn(page, PASSWORD);
+  await expect(page).toHaveURL(/\/dashboard$/);
+  await expect(page.getByText("Valentina Ríos", { exact: true })).toBeVisible();
+
+  await page.getByRole("button", { name: "Cerrar sesión" }).click();
+  await expect(page).toHaveURL(/\/login$/);
+
+  // Next's <Activity> preserves hidden routes; neither the credentials nor the dashboard may survive logout.
+  await expect(page.getByLabel("Email")).toHaveValue("");
+  await expect(page.getByLabel("Contraseña")).toHaveValue("");
+  await expect(page.getByRole("button", { name: "Ingresar" })).toBeEnabled();
+  await expect(page.getByText("Valentina Ríos", { exact: true })).toHaveCount(0);
+  await expect(page.getByRole("table")).toHaveCount(0);
+});
