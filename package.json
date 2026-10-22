@@ -1,0 +1,16 @@
+{
+  "name": "red-pulse",
+  "private": true,
+  "packageManager": "pnpm@10.34.5",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "postinstall": "pnpm --filter @red-pulse/contracts build",
+    "dev": "pnpm --parallel --filter @red-pulse/api --filter @red-pulse/web dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test"
+  }
+}
